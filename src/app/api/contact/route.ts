@@ -5,26 +5,44 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, message } = await request.json();
+    // 1️⃣ Leer y loguear el body de la request
+    const body = await request.json();
+    console.log('Request body received:', body);
+
+    const { name, email, message } = body;
 
     if (!name || !email || !message) {
+      console.warn('Campos faltantes en el formulario');
       return NextResponse.json(
         { error: 'Todos los campos son obligatorios' },
         { status: 400 }
       );
     }
 
+    // 2️⃣ Validar email y log
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
+      console.warn('Email inválido:', email);
       return NextResponse.json(
         { error: 'Email inválido' },
         { status: 400 }
       );
     }
 
-    const data = await resend.emails.send({
-      from: 'Contact Form <noreply@amoniz.dev>', // ← CAMBIO AQUÍ
-      to: ['hello@amoniz.dev'],                   // ← CAMBIO AQUÍ
+    // 3️⃣ Verificar API key
+    console.log('RESEND_API_KEY presente:', process.env.RESEND_API_KEY ? '✅' : '❌');
+    if (!process.env.RESEND_API_KEY) {
+      console.error('No hay API key de Resend configurada');
+      return NextResponse.json(
+        { error: 'Error de configuración de API key' },
+        { status: 500 }
+      );
+    }
+
+    // 4️⃣ Preparar los datos del email
+    const emailData = {
+      from: 'Contact Form <noreply@amoniz.dev>',
+      to: ['hello@amoniz.dev'],
       replyTo: email,
       subject: `Nuevo mensaje de ${name}`,
       html: `
@@ -43,13 +61,29 @@ export async function POST(request: NextRequest) {
           </p>
         </div>
       `
+    };
+
+    console.log('Datos que se van a enviar a Resend:', {
+      from: emailData.from,
+      to: emailData.to,
+      replyTo: emailData.replyTo,
+      subject: emailData.subject
     });
 
+    // 5️⃣ Enviar el email
+    const data = await resend.emails.send(emailData);
+
+    console.log('Resend response:', data);
+
     return NextResponse.json({ success: true, data }, { status: 200 });
-  } catch (error) {
+  } catch (error: any) {
+    // 6️⃣ Captura más detallada de errores
     console.error('Error sending email:', error);
+    if (error.response) {
+      console.error('Resend response error:', error.response);
+    }
     return NextResponse.json(
-      { error: 'Error al enviar el mensaje' },
+      { error: 'Error al enviar el mensaje', details: error.message || error },
       { status: 500 }
     );
   }
