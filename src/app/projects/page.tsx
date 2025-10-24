@@ -2,12 +2,12 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { translations, Language, Project } from '../../lib/translations';
+import { translations, Project } from '../../lib/translations';
+import { useLanguage } from '../../hooks/useLanguage';
 import Navbar from '../../components/Navbar';
 
 export default function ProjectsPage() {
-  const [lang, setLang] = useState<Language>('en');
+  const { lang, setLang, isLoaded } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const t = translations[lang];
   const projectsT = t.projects;
@@ -15,6 +15,10 @@ export default function ProjectsPage() {
   const filteredProjects = selectedCategory === 'all' 
     ? projectsT.projectsList 
     : projectsT.projectsList.filter((p: Project) => p.category === selectedCategory);
+
+  if (!isLoaded) {
+    return null;
+  }
 
   return (
     <>
@@ -114,7 +118,7 @@ export default function ProjectsPage() {
 
                   <div className="space-y-2">
                     
-                     <a href={project.link}
+                      <a href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-block w-full text-center bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"

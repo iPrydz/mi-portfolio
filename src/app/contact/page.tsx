@@ -2,11 +2,12 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { translations, Language } from '../../lib/translations';
+import { translations } from '../../lib/translations';
+import { useLanguage } from '../../hooks/useLanguage';
 import Navbar from '../../components/Navbar';
 
 export default function ContactPage() {
-  const [lang, setLang] = useState<Language>('en');
+  const { lang, setLang, isLoaded } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -52,6 +53,10 @@ export default function ContactPage() {
     });
   };
 
+  if (!isLoaded) {
+    return null;
+  }
+
   return (
     <>
       <Navbar lang={lang} setLang={setLang} translations={t} />
@@ -80,7 +85,6 @@ export default function ContactPage() {
           <div className="bg-slate-800/50 rounded-xl p-8 backdrop-blur-sm">
             <form onSubmit={handleSubmit} className="space-y-6">
               
-              {/* Name */}
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">
                   {lang === 'en' ? 'Name' : 'Nombre'}
@@ -97,7 +101,6 @@ export default function ContactPage() {
                 />
               </div>
 
-              {/* Email */}
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
                   Email
@@ -114,7 +117,6 @@ export default function ContactPage() {
                 />
               </div>
 
-              {/* Message */}
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">
                   {lang === 'en' ? 'Message' : 'Mensaje'}
@@ -131,7 +133,6 @@ export default function ContactPage() {
                 />
               </div>
 
-              {/* Status Messages */}
               {status === 'success' && (
                 <div className="bg-green-500/20 border border-green-500 text-green-400 px-4 py-3 rounded-lg">
                   {lang === 'en' 
@@ -146,7 +147,6 @@ export default function ContactPage() {
                 </div>
               )}
 
-              {/* Submit Button */}
               <button
                 type="submit"
                 disabled={status === 'loading'}
@@ -158,7 +158,6 @@ export default function ContactPage() {
               </button>
             </form>
 
-            {/* Alternative Contact */}
             <div className="mt-8 pt-8 border-t border-slate-700">
               <p className="text-slate-400 text-center">
                 {lang === 'en' ? 'Or email me directly at:' : 'O escríbeme directamente a:'}

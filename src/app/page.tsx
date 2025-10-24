@@ -1,13 +1,17 @@
 'use client';
 
-import { useState } from 'react';
 import { translations, Language } from '@/lib/translations';
+import { useLanguage } from '@/hooks/useLanguage'; 
 import Navbar from '@/components/Navbar';
 
 export default function Home() {
-  const [lang, setLang] = useState<Language>('en');
+  const { lang, setLang, isLoaded } = useLanguage(); 
   const t = translations[lang];
   const cv = t.cv;
+
+  if (!isLoaded) {
+    return null;
+  }
 
   return (
     <>
