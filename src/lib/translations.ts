@@ -9,9 +9,9 @@ export const translations = {
     cv: {
       name: "Alejandro Moñiz Mesa",
       role: "IT Technician - SysAdmin",
-      location: "Sant Boi de Llobregat, Barcelona, Spain",
+      location: "Barcelona, Spain",
       aboutTitle: "About Me",
-      aboutText1: "I began my career as a Level 1 to Level 3 IT support technician and computer configurator. I have now progressed to the position of applications and systems administrator, managing users, applications, and pharmaceutical systems.",
+      aboutText1: "I began my career as a Level 1 to Level 3 IT support technician and computer configurator. I have now progressed to the position of applications and systems administrator, managing users, applications, and GxP systems.",
       aboutText2: "I also develop low-code applications and scripts in PowerShell, C#, and Python. As a hobby, I am a video game programmer and owner of a video game company. I am passionate about computers and tend to learn new concepts quickly.",
       experienceTitle: "Experience",
       educationTitle: "Education",
@@ -22,12 +22,12 @@ export const translations = {
       exp1Company: "Laboratories Reig Jofré S.A.",
       exp1Role: "IT Technician - SysAdmin",
       exp1Period: "July 2023 - Present",
-      exp1Desc: "Administration of eQMS applications (Qumas and Trackwise), SQL Servers for GLP/GMP applications, user and permissions management in AD, virtual machine administration in VMWare, PowerShell/C#/Python development.",
+      exp1Desc: "eQMS application administration (Qumas and Trackwise), general SQL Server administration, GxP software administration, user and permission management in AD, virtual machine administration in VMWare, backup management in Commvault, PowerShell/C#/Python development.",
       
       exp2Company: "Galenicum Health S.L.U.",
       exp2Role: "IT Technician - SysAdmin",
       exp2Period: "June 2020 - July 2023",
-      exp2Desc: "Windows Server administration, AD management, Google Workspace expert, eQMS applications administration (Quality Forward), GMP/GLP software administration, low-code and script development.",
+      exp2Desc: "Windows Server administration, AD administration, Google Workspace expert, eQMS (Quality Forward) application administration, GxP software administration, low-code development, and scripting.",
       
       exp3Company: "TaleSoft Studio SCP",
       exp3Role: "Partner, Videogames Developer",
@@ -155,9 +155,9 @@ export const translations = {
     cv: {
       name: "Alejandro Moñiz Mesa",
       role: "Técnico IT - SysAdmin",
-      location: "Sant Boi de Llobregat, Barcelona, España",
+      location: "Barcelona, España",
       aboutTitle: "Sobre Mí",
-      aboutText1: "Comencé mi carrera como técnico de soporte IT de nivel 1 a 3 y configurador de equipos. Ahora he progresado a la posición de administrador de aplicaciones y sistemas, gestionando usuarios, aplicaciones y sistemas farmacéuticos.",
+      aboutText1: "Comencé mi carrera como técnico de soporte IT de nivel 1 a 3. He ido progresando hasta la posición actual de administrador de aplicaciones y sistemas, gestionando usuarios, aplicaciones y sistemas GxP.",
       aboutText2: "También desarrollo aplicaciones low-code y scripts en PowerShell, C# y Python. Como hobby, soy programador de videojuegos y propietario de una empresa de videojuegos. Me apasionan los ordenadores y tiendo a aprender nuevos conceptos rápidamente.",
       experienceTitle: "Experiencia",
       educationTitle: "Educación",
@@ -168,12 +168,12 @@ export const translations = {
       exp1Company: "Laboratorios Reig Jofré S.A.",
       exp1Role: "Técnico IT - SysAdmin",
       exp1Period: "Julio 2023 - Actualidad",
-      exp1Desc: "Administración de aplicaciones eQMS (Qumas y Trackwise), SQL Servers para aplicaciones GLP/GMP, gestión de usuarios y permisos en AD, administración de máquinas virtuales en VMWare, desarrollo PowerShell/C#/Python.",
+      exp1Desc: "Administración de aplicaciones eQMS (Qumas y Trackwise), administración general de SQL Server, administración de software GxP, gestión de usuarios y permisos en AD, administración de máquinas virtuales en VMWare, gestión de backups en Commvault, desarrollo PowerShell/C#/Python.",
       
       exp2Company: "Galenicum Health S.L.U.",
       exp2Role: "Técnico IT - SysAdmin",
       exp2Period: "Junio 2020 - Julio 2023",
-      exp2Desc: "Administración de Windows Server, gestión de AD, experto en Google Workspace, administración de aplicaciones eQMS (Quality Forward), software GMP/GLP, desarrollo low-code y scripts.",
+      exp2Desc: "Administración de Windows Server, administración de AD, experto en Google Workspace, administración de aplicaciones eQMS (Quality Forward), administración de software GxP, desarrollo low-code y scripts.",
       
       exp3Company: "TaleSoft Studio SCP",
       exp3Role: "Socio, Desarrollador de Videojuegos",

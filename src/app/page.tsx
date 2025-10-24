@@ -45,13 +45,6 @@ export default function Home() {
             <p className="text-2xl text-slate-300 mb-2">{cv.role}</p>
             <p className="text-slate-400">{cv.location}</p>
             <div className="flex justify-center gap-4 mt-6">
-              <a href="mailto:alex.moniz@hotmail.com" className="text-blue-400 hover:text-blue-300 transition-colors">
-                📧 Email
-              </a>
-              <span className="text-slate-500">|</span>
-              <a href="tel:+34664057637" className="text-blue-400 hover:text-blue-300 transition-colors">
-                📱 +34 664 057 637
-              </a>
             </div>
           </header>
           {/* About Me Section */}

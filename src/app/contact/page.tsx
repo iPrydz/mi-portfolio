@@ -65,13 +65,6 @@ export default function ContactPage() {
         <div className="container mx-auto px-4 py-12 max-w-2xl">
           
           <div className="mb-12">
-            <Link 
-              href="/" 
-              className="text-blue-400 hover:text-blue-300 transition-colors mb-4 inline-block"
-            >
-              ← {lang === 'en' ? 'Back to Home' : 'Volver al inicio'}
-            </Link>
-            
             <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
               {lang === 'en' ? 'Contact Me' : 'Contáctame'}
             </h1>
@@ -170,6 +163,11 @@ export default function ContactPage() {
               </a>
             </div>
           </div>
+
+          {/* Footer */}
+          <footer className="text-center text-slate-400 py-8 mt-12 border-t border-slate-700">
+            <p>© 2025 Alejandro Moñiz Mesa</p>
+          </footer>
 
         </div>
       </main>
