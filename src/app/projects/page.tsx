@@ -6,7 +6,7 @@ import { translations, Language, Project } from '../../lib/translations';
 import Navbar from '../../components/Navbar';
 
 export default function ProjectsPage() {
-  const [lang, setLang] = useState<Language>('en');
+  const { lang, setLang, isLoaded } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const t = translations[lang];
   const projectsT = t.projects;
@@ -14,6 +14,10 @@ export default function ProjectsPage() {
   const filteredProjects = selectedCategory === 'all' 
     ? projectsT.projectsList 
     : projectsT.projectsList.filter((p: Project) => p.category === selectedCategory);
+
+  if (!isLoaded) {
+    return null;
+  }
 
   return (
     <>
@@ -23,13 +27,6 @@ export default function ProjectsPage() {
         <div className="container mx-auto px-4 py-12 max-w-6xl">
           
           <div className="mb-12">
-            <Link 
-              href="/" 
-              className="text-blue-400 hover:text-blue-300 transition-colors mb-4 inline-block"
-            >
-              {projectsT.backToHome}
-            </Link>
-            
             <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
               {projectsT.title}
             </h1>
@@ -58,7 +55,7 @@ export default function ProjectsPage() {
             {filteredProjects.map((project: Project) => (
               <div
                 key={project.id}
-                className="bg-slate-800/50 rounded-xl overflow-hidden backdrop-blur-sm hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 group"
+                className="bg-slate-800/50 rounded-xl overflow-hidden backdrop-blur-sm hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 group flex flex-col"
               >
                 <div className="relative h-56 bg-slate-700 overflow-hidden">
                   <img
@@ -81,7 +78,7 @@ export default function ProjectsPage() {
                   </div>
                 </div>
 
-                <div className="p-6">
+                <div className="p-6 flex flex-col flex-1">
                   <div className="mb-3 flex items-center justify-between">
                     <span className="inline-block px-3 py-1 bg-green-500/20 text-green-400 text-xs font-semibold rounded-full">
                       {project.status}
@@ -93,7 +90,7 @@ export default function ProjectsPage() {
                     {project.title}
                   </h3>
                   
-                  <p className="text-slate-300 mb-4 leading-relaxed">
+                  <p className="text-slate-300 mb-4 leading-relaxed line-clamp-3 flex-grow">
                     {project.shortDesc}
                   </p>
 
@@ -111,9 +108,9 @@ export default function ProjectsPage() {
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    
-                     <a href={project.link}
+                  <div className="space-y-2 mt-auto">
+                    <a 
+                      href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-block w-full text-center bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
@@ -140,6 +137,11 @@ export default function ProjectsPage() {
               <p className="text-slate-400 text-xl">No projects found in this category.</p>
             </div>
           )}
+
+          {/* Footer */}
+          <footer className="text-center text-slate-400 py-8 mt-12 border-t border-slate-700">
+            <p>© 2025 Alejandro Moñiz Mesa</p>
+          </footer>
         </div>
       </main>
     </>
