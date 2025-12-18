@@ -1,21 +1,15 @@
 'use client';
 
-import { translations, Language } from '@/lib/translations';
-import { useLanguage } from '@/hooks/useLanguage'; 
+import { translations } from '@/lib/translations';
 import Navbar from '@/components/Navbar';
 
 export default function Home() {
-  const { lang, setLang, isLoaded } = useLanguage(); 
-  const t = translations[lang];
+  const t = translations;
   const cv = t.cv;
-
-  if (!isLoaded) {
-    return null;
-  }
 
   return (
     <>
-      <Navbar lang={lang} setLang={setLang} translations={t} />
+      <Navbar translations={t} />
       
       <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-700 text-white pt-16">
         <div className="container mx-auto px-4 py-12 max-w-4xl">

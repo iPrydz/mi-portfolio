@@ -2,27 +2,18 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Language, Translations } from '@/lib/translations';
+import { Translations } from '@/lib/translations';
 
 interface NavbarProps {
-  lang: Language;
-  setLang: (lang: Language) => void;
   translations: Translations;
 }
 
-export default function Navbar({ lang, setLang, translations }: NavbarProps) {
+export default function Navbar({ translations }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
   const t = translations;
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
-  const toggleLangMenu = () => setIsLangMenuOpen(!isLangMenuOpen);
-
-  const toggleLanguage = () => {
-    const newLang = lang === 'en' ? 'es' : 'en';
-    setLang(newLang);
-  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-slate-900/95 backdrop-blur-sm border-b border-slate-800 z-50">
@@ -88,53 +79,6 @@ export default function Navbar({ lang, setLang, translations }: NavbarProps) {
             </div>
           </div>
 
-          {/* Right side: Language Switcher - Desktop */}
-          <div className="relative">
-            <button
-              onClick={toggleLangMenu}
-              className={`p-2 transition-colors ${
-                isLangMenuOpen ? 'text-blue-400' : 'text-slate-300 hover:text-white'
-              }`}
-              aria-label="Toggle language"
-            >
-              <svg 
-                className="w-6 h-6" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" 
-                />
-              </svg>
-            </button>
-
-            {/* Dropdown Menu - Desktop */}
-            {isLangMenuOpen && (
-              <div className="absolute right-0 top-full mt-2 bg-slate-800 rounded-lg shadow-xl border border-slate-700 p-4 min-w-[220px] animate-fade-in">
-                <div className="flex items-center justify-between gap-3">
-                  <span className="text-slate-300 text-sm">
-                    {lang === 'en' ? 'Translate to Spanish' : 'Traducir al Español'}
-                  </span>
-                  
-                  {/* Toggle Switch */}
-                  <button
-                    onClick={toggleLanguage}
-                    className={`relative w-12 h-6 rounded-full transition-colors ${
-                      lang === 'es' ? 'bg-blue-600' : 'bg-slate-600'
-                    }`}
-                  >
-                    <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${
-                      lang === 'es' ? 'translate-x-7' : 'translate-x-1'
-                    }`}></div>
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
         </div>
 
         {/* Mobile Menu Dropdown */}
@@ -180,55 +124,11 @@ export default function Navbar({ lang, setLang, translations }: NavbarProps) {
                 >
                   {t.nav.contact}
                 </Link>
-
-                {/* Language Toggle - Mobile */}
-                <div className="mt-4 bg-slate-800 rounded-lg p-4">
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-3">
-                      <svg 
-                        className="w-5 h-5 text-slate-300" 
-                        fill="none" 
-                        stroke="currentColor" 
-                        viewBox="0 0 24 24"
-                      >
-                        <path 
-                          strokeLinecap="round" 
-                          strokeLinejoin="round" 
-                          strokeWidth={2} 
-                          d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" 
-                        />
-                      </svg>
-                      <span className="text-slate-300 text-sm">
-                        {lang === 'en' ? 'Translate to Spanish' : 'Traducir al Español'}
-                      </span>
-                    </div>
-                    
-                    {/* Toggle Switch */}
-                    <button
-                      onClick={toggleLanguage}
-                      className={`relative w-12 h-6 rounded-full transition-colors flex-shrink-0 ${
-                        lang === 'es' ? 'bg-blue-600' : 'bg-slate-600'
-                      }`}
-                    >
-                      <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${
-                        lang === 'es' ? 'translate-x-7' : 'translate-x-1'
-                      }`}></div>
-                    </button>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
         )}
       </div>
-
-      {/* Overlay para cerrar el menú de idioma al hacer click fuera - Desktop */}
-      {isLangMenuOpen && (
-        <div 
-          className="hidden md:block fixed inset-0 z-[-1]" 
-          onClick={() => setIsLangMenuOpen(false)}
-        ></div>
-      )}
     </nav>
   );
 }
