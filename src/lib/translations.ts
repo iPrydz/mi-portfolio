@@ -295,6 +295,8 @@ export const translations = {
 
 export type Language = 'en' | 'es';
 
+export type Translations = typeof translations.en;
+
 export interface Project {
   id: string;
   title: string;

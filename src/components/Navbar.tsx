@@ -1,12 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { Language } from '@/lib/translations';
+import { Language, Translations } from '@/lib/translations';
 
 interface NavbarProps {
   lang: Language;
   setLang: (lang: Language) => void;
-  translations: any;
+  translations: Translations;
 }
 
 export default function Navbar({ lang, setLang, translations }: NavbarProps) {

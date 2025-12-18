@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { translations, Language, Project } from '../../lib/translations';
 import Navbar from '../../components/Navbar';
 
