@@ -51,7 +51,7 @@ export const translations = {
   },
   projects: {
     title: "My Projects",
-    subtitle: "A collection of my game development projects",
+    subtitle: "A collection of my projects",
     backToHome: "← Back to Home",
     viewDetails: "View Details",
     viewOnStore: "View on Google Play",
@@ -145,7 +145,14 @@ export const translations = {
   miniatures: {
     title: "3D Miniature Printing",
     subtitle: "Custom miniature printing service in Spain",
+
+    // Location
     location: "Service available in Spain. Contact me to review shipping costs for other locations.",
+
+    // Technical specs
+    specsTitle: "Technical Specifications",
+    maxSize: "Maximum print size",
+    maxSizeValue: "200 x 218 x 123 mm (height x width x depth)",
 
     // Design your own section
     designOwnTitle: "Design Your Own Miniature",
@@ -172,33 +179,24 @@ export const translations = {
       bestiarumGames: "Bestiarum Games"
     },
 
+    // CTA buttons
+    heroForgeButton: "Go to Hero Forge",
+    contactButton: "Contact Me",
+
     // Pricing section
     pricingTitle: "Pricing",
     pricingSubtitle: "Transparent and competitive prices",
-
     miniaturesSizeTitle: "Miniatures",
     price4_5cm: "4.5cm: 4€",
     price5_5_5cm: "5-5.5cm: 6€",
     priceLarger: "Larger miniatures: Contact for pricing",
-
     basesTitle: "Bases",
     priceSimpleBase: "Simple base: 2€",
     priceDetailedBase: "Detailed or larger base: 4-6€",
-
     includedTitle: "What's included",
     includedClean: "Delivered clean, cured, and support-free",
     includedPrimer: "Can be primed in black or dark gray",
-
     noCommitment: "Any questions? Feel free to ask without any commitment.",
-
-    // Technical specs
-    specsTitle: "Technical Specifications",
-    maxSize: "Maximum print size",
-    maxSizeValue: "200 x 218 x 123 mm (height x width x depth)",
-
-    // CTA buttons
-    heroForgeButton: "Go to Hero Forge",
-    contactButton: "Contact Me",
 
     // Future gallery placeholder
     galleryComingSoon: "Gallery coming soon"

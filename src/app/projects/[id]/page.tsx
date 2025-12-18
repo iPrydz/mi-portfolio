@@ -10,12 +10,17 @@ export default function ProjectDetailPage() {
   const t = translations;
   const projectsT = t.projects;
 
-  const project = projectsT.projectsList.find((p: Project) => p.id === params.id);
+  // Sort projects by year (descending - most recent first)
+  const sortedProjects = [...projectsT.projectsList].sort((a, b) =>
+    parseInt(b.year) - parseInt(a.year)
+  );
+
+  const project = sortedProjects.find((p: Project) => p.id === params.id);
 
   // Find current project index and get previous/next projects
-  const currentIndex = projectsT.projectsList.findIndex((p: Project) => p.id === params.id);
-  const previousProject = currentIndex > 0 ? projectsT.projectsList[currentIndex - 1] : null;
-  const nextProject = currentIndex < projectsT.projectsList.length - 1 ? projectsT.projectsList[currentIndex + 1] : null;
+  const currentIndex = sortedProjects.findIndex((p: Project) => p.id === params.id);
+  const previousProject = currentIndex > 0 ? sortedProjects[currentIndex - 1] : null;
+  const nextProject = currentIndex < sortedProjects.length - 1 ? sortedProjects[currentIndex + 1] : null;
 
   if (!project) {
     return (

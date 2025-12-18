@@ -10,9 +10,14 @@ export default function ProjectsPage() {
   const t = translations;
   const projectsT = t.projects;
 
+  // Sort projects by year (descending - most recent first)
+  const sortedProjects = [...projectsT.projectsList].sort((a, b) =>
+    parseInt(b.year) - parseInt(a.year)
+  );
+
   const filteredProjects = selectedCategory === 'all'
-    ? projectsT.projectsList
-    : projectsT.projectsList.filter((p: Project) => p.category === selectedCategory);
+    ? sortedProjects
+    : sortedProjects.filter((p: Project) => p.category === selectedCategory);
 
   return (
     <>
@@ -79,17 +84,19 @@ export default function ProjectsPage() {
                     <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors truncate">
                       {project.title}
                     </h3>
-                    <span className="inline-block px-2 py-1 bg-green-500/20 text-green-400 text-xs font-semibold rounded-full flex-shrink-0">
+                    {/* Desktop: Show status and year */}
+                    <span className="hidden md:inline-block px-2 py-1 bg-green-500/20 text-green-400 text-xs font-semibold rounded-full flex-shrink-0">
                       {project.status}
                     </span>
-                    <span className="text-slate-400 text-sm flex-shrink-0">{project.year}</span>
+                    <span className="hidden md:block text-slate-400 text-sm flex-shrink-0">{project.year}</span>
                   </div>
 
                   <p className="text-slate-300 text-sm line-clamp-2 mb-2">
                     {project.shortDesc}
                   </p>
 
-                  <div className="flex flex-wrap gap-2">
+                  {/* Desktop: Show technologies */}
+                  <div className="hidden md:flex flex-wrap gap-2">
                     {project.technologies.slice(0, 4).map((tech: string, index: number) => (
                       <span
                         key={index}
@@ -103,6 +110,14 @@ export default function ProjectsPage() {
                         +{project.technologies.length - 4}
                       </span>
                     )}
+                  </div>
+
+                  {/* Mobile: Show status and year instead of technologies */}
+                  <div className="flex md:hidden items-center gap-2">
+                    <span className="inline-block px-2 py-1 bg-green-500/20 text-green-400 text-xs font-semibold rounded-full">
+                      {project.status}
+                    </span>
+                    <span className="text-slate-400 text-sm">{project.year}</span>
                   </div>
                 </div>
 
