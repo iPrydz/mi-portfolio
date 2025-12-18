@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { translations, Language, Project } from '../../lib/translations';
+import { useLanguage } from '@/hooks/useLanguage';
 import Navbar from '../../components/Navbar';
 
 export default function ProjectsPage() {
