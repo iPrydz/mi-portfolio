@@ -4,13 +4,13 @@ import { translations } from '@/lib/translations';
 import Navbar from '@/components/Navbar';
 
 export default function GamesPage() {
-  const t = translations.es;  // Español por defecto
+  const t = translations.en;  // English by default
 
   const games = [
     {
       title: "Typing Defense",
       icon: "⌨️",
-      description: "Roguelike typing game con estética Game & Watch. Defiende tu torreta escribiendo palabras que atacan desde todos los ángulos. Sistema de mejoras y progresión.",
+      description: "Roguelike typing game with Game & Watch aesthetic. Defend your tower by typing words that attack from all angles. Upgrade system and progression.",
       tech: ["Vanilla JS", "Canvas", "Roguelike"],
       url: "/games/typing",
       comingSoon: false
@@ -18,7 +18,7 @@ export default function GamesPage() {
     {
       title: "Coming Soon",
       icon: "🎯",
-      description: "Próximo juego en desarrollo. Stay tuned para más actualizaciones...",
+      description: "Next game in development. Stay tuned for more updates...",
       tech: ["TBA"],
       url: "#",
       comingSoon: true
@@ -26,7 +26,7 @@ export default function GamesPage() {
     {
       title: "Coming Soon",
       icon: "🎲",
-      description: "Más juegos experimentales en camino. Explorando nuevas mecánicas y estilos...",
+      description: "More experimental games on the way. Exploring new mechanics and styles...",
       tech: ["TBA"],
       url: "#",
       comingSoon: true
@@ -58,17 +58,17 @@ export default function GamesPage() {
               Games Collection
             </h1>
             <p className="text-2xl text-slate-300 mb-2">
-              Minijuegos Retro & Experimentales
+              Retro & Experimental Mini-games
             </p>
             <p className="text-slate-400">
-              Desarrollados con ❤️ en Barcelona
+              Made with ❤️ in Barcelona
             </p>
           </header>
 
           {/* Games Section */}
           <section className="mb-12">
             <h2 className="text-3xl font-bold mb-6 text-blue-400 flex items-center gap-2">
-              <span>🕹️</span> Juegos Disponibles
+              <span>🕹️</span> Available Games
             </h2>
 
             <div className="grid md:grid-cols-1 gap-6">
