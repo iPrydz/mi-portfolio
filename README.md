@@ -165,6 +165,8 @@ git submodule update --init --recursive && next build
 
 Esto asegura que todos los juegos estén disponibles en producción. Sin este paso, los juegos en `public/games/` no estarían disponibles en el deployment de Vercel.
 
+**⚠️ Importante:** Los repositorios de submodules deben ser **públicos** en GitHub, o Vercel necesita tener acceso a ellos mediante GitHub integration. Si el repo es privado, el build fallará con error de autenticación.
+
 ---
 
 ## 📝 Documentación Adicional

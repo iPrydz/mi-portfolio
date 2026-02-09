@@ -250,22 +250,39 @@ git submodule update --init --recursive && next build
 
 ### ⚠️ IMPORTANTE: Submodules en Vercel
 
-**Problema:** Vercel NO inicializa git submodules automáticamente.
+**Problema 1:** Vercel NO inicializa git submodules automáticamente.
 
 **Solución:** El script `build` en `package.json` incluye la inicialización:
 ```json
 "build": "git submodule update --init --recursive && next build"
 ```
 
+**Problema 2:** Vercel necesita acceso a los repositorios de los submodules.
+
+**Solución:** Los repositorios de submodules DEBEN ser públicos, o Vercel debe tener acceso mediante GitHub integration.
+
+**Error típico si el repo es privado:**
+```
+fatal: could not read Username for 'https://github.com'
+fatal: clone of 'https://github.com/iPrydz/games.git' failed
+Error: Command "npm run build" exited with 1
+```
+
+**Cómo solucionarlo:**
+1. **Opción A (Recomendado):** Hacer el repositorio del submodule público en GitHub
+   - Ve a GitHub → Repositorio → Settings → Danger Zone → Change visibility → Make public
+2. **Opción B:** Dar acceso a Vercel mediante GitHub integration
+   - Vercel Dashboard → Settings → Git → Reinstall GitHub → Grant access to submodule repos
+
 **Flujo de deployment:**
 1. Vercel clona el repositorio principal (`mi-portfolio`)
 2. Ejecuta `npm install`
 3. Ejecuta `npm run build`:
-   - Primero: `git submodule update --init --recursive` → Clona el juego typing
+   - Primero: `git submodule update --init --recursive` → Clona el juego typing (requiere acceso público)
    - Después: `next build` → Compila Next.js con los juegos disponibles
 4. Deploy completo con todos los juegos funcionando
 
-**Sin esta configuración:** Los juegos darían 404 en producción.
+**Sin esta configuración:** Los juegos darían 404 en producción o el build fallaría.
 
 ---
 
@@ -307,7 +324,7 @@ mi-portfolio/
 
 1. **⚠️ BUILD CRÍTICO:** El script `build` en `package.json` DEBE incluir `git submodule update --init --recursive`. Sin esto, los juegos no funcionarán en producción (Vercel). NO modifiques este script sin actualizar esta documentación.
 
-2. **Submodules:** Recuerda que los juegos en `public/games/` son Git Submodules. No edites directamente, trabaja en el repo original del juego.
+2. **Submodules:** Recuerda que los juegos en `public/games/` son Git Submodules. No edites directamente, trabaja en el repo original del juego. **IMPORTANTE:** Los repos de submodules DEBEN ser públicos para que Vercel pueda clonarlos durante el build.
 
 3. **Routing de Juegos:** Cada juego necesita:
    - Página de redirect en `src/app/games/[nombre]/page.tsx`
@@ -338,7 +355,9 @@ mi-portfolio/
 - ✅ Fix layout shift con scrollbar-gutter
 - ✅ Estandarizado max-width en todas las páginas
 - ✅ **CRÍTICO:** Añadido `git submodule update --init` al build script para Vercel
-- ✅ Creada página de redirect para `/games/typing`
+- ✅ Cambiado de redirect a iframe para `/games/typing`
+- ✅ Añadidos Next.js rewrites para servir archivos estáticos del juego
+- ⚠️ **IMPORTANTE:** Repositorios de submodules deben ser públicos para Vercel
 
 ---
 
