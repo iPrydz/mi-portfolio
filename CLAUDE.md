@@ -19,19 +19,19 @@ Este documento describe la arquitectura y organización del portfolio de Alejand
 mi-portfolio/
 ├── src/
 │   ├── app/
-│   │   ├── page.tsx                 # Home (CV/Resume)
-│   │   ├── projects/page.tsx        # Portfolio de proyectos de videojuegos
+│   │   ├── page.tsx                 # Home (CV/Resume) - EN only
+│   │   ├── projects/
+│   │   │   ├── page.tsx             # Portfolio de proyectos - EN only
+│   │   │   └── [id]/page.tsx        # Detalle de proyecto
 │   │   ├── games/
-│   │   │   └── page.tsx             # Landing page de minijuegos
-│   │   ├── miniatures/page.tsx      # Galería de miniaturas
-│   │   └── contact/page.tsx         # Formulario de contacto
-│   ├── components/
-│   │   └── Navbar.tsx               # Navegación principal
-│   ├── lib/
-│   │   └── translations.ts          # i18n (EN/ES)
-│   └── hooks/
-│       └── useLanguage.ts           # Hook de idioma
+│   │   │   ├── page.tsx             # Landing page de minijuegos - EN only
+│   │   │   └── typing/page.tsx      # Redirect a typing game estático
+│   │   ├── miniatures/page.tsx      # 3D Printing Miniatures - EN only
+│   │   └── contact/page.tsx         # Formulario de contacto - EN only
+│   └── components/
+│       └── Navbar.tsx               # Navegación principal - EN only
 ├── public/
+│   ├── images/                      # Imágenes del portfolio
 │   └── games/                       # ⭐ Juegos como Git Submodules
 │       └── typing/                  # Submodule → github.com/iPrydz/games
 │           ├── index.html
@@ -68,6 +68,24 @@ mi-portfolio/public/games/
 **URLs:**
 - Landing: `amoniz.dev/games` → Lista todos los juegos disponibles
 - Typing Defense: `amoniz.dev/games/typing` → Juego completo
+
+### Routing de Juegos:
+
+Los juegos utilizan una arquitectura híbrida:
+
+1. **Landing Page (`/games`):**
+   - Next.js page: `src/app/games/page.tsx`
+   - Lista todos los juegos con links
+
+2. **Juego Individual (`/games/typing`):**
+   - Next.js redirect page: `src/app/games/typing/page.tsx`
+   - Redirige a: `/games/typing/index.html` (archivo estático)
+   - Archivo estático: `public/games/typing/index.html` (del submodule)
+
+**¿Por qué necesitamos la página de redirect?**
+- Next.js App Router captura todas las rutas `/games/*`
+- Sin la página en `src/app/games/typing/page.tsx`, daría 404
+- La página hace redirect client-side a la versión estática del juego
 
 ### Lista de Juegos (Submodules):
 
@@ -154,29 +172,14 @@ Usa `npm run games:update` para actualizar todos los submodules automáticamente
 
 ## 🌍 Internacionalización (i18n)
 
-El portfolio soporta **Inglés** y **Español**.
+~~El portfolio soporta **Inglés** y **Español**.~~
 
-**Archivo:** `src/lib/translations.ts`
+**⚠️ ACTUALIZACIÓN:** El proyecto ahora está completamente en **INGLÉS** solamente.
 
-Para añadir nuevas traducciones:
-```typescript
-export const translations = {
-  en: {
-    nav: { /* ... */ },
-    newSection: {
-      title: "Title in English",
-      description: "Description in English"
-    }
-  },
-  es: {
-    nav: { /* ... */ },
-    newSection: {
-      title: "Título en Español",
-      description: "Descripción en Español"
-    }
-  }
-};
-```
+- Se eliminó el sistema de traducciones
+- El archivo `src/lib/translations.ts` ya NO se usa en los componentes
+- Todo el contenido está hardcodeado en inglés directamente en cada página
+- Si necesitas añadir nuevo contenido, escríbelo directamente en inglés en los componentes
 
 ---
 
@@ -200,18 +203,37 @@ export const translations = {
 ```json
 {
   "dev": "next dev",
-  "build": "next build",
+  "build": "git submodule update --init --recursive && next build",
   "start": "next start",
   "games:update": "git submodule update --remote --merge",
-  "games:status": "git submodule status"
+  "games:status": "git submodule status",
+  "games:init": "git submodule update --init --recursive"
 }
 ```
 
 **Uso:**
 - `npm run dev` - Desarrollo local
-- `npm run build` - Build de producción
+- `npm run build` - Build de producción (⚠️ incluye inicialización de submodules)
 - `npm run games:update` - Actualizar todos los juegos (submodules)
 - `npm run games:status` - Ver estado de submodules
+- `npm run games:init` - Inicializar submodules manualmente
+
+### ⚠️ CRÍTICO: Build con Submodules
+
+El script `build` ejecuta:
+```bash
+git submodule update --init --recursive && next build
+```
+
+**¿Por qué es necesario?**
+- Vercel NO inicializa git submodules automáticamente durante el deployment
+- Sin este comando, la carpeta `public/games/typing/` estaría vacía en producción
+- Esto causaría 404 errors en `/games/typing`
+
+**Resultado:**
+- Los juegos se clonan/actualizan antes del build de Next.js
+- Los archivos HTML/JS/CSS del juego están disponibles en `public/games/typing/`
+- Next.js puede servir correctamente `/games/typing/index.html`
 
 ---
 
@@ -219,15 +241,31 @@ export const translations = {
 
 ### Vercel Configuration:
 
-**Build Command:** `npm run build`
+**Build Command:** `npm run build` (que incluye `git submodule update --init --recursive`)
 **Output Directory:** `.next`
 **Install Command:** `npm install`
 
 **Environment Variables:**
 - (Ninguna por ahora)
 
-**Nota sobre Submodules:**
-Vercel detecta y clona automáticamente los submodules durante el build.
+### ⚠️ IMPORTANTE: Submodules en Vercel
+
+**Problema:** Vercel NO inicializa git submodules automáticamente.
+
+**Solución:** El script `build` en `package.json` incluye la inicialización:
+```json
+"build": "git submodule update --init --recursive && next build"
+```
+
+**Flujo de deployment:**
+1. Vercel clona el repositorio principal (`mi-portfolio`)
+2. Ejecuta `npm install`
+3. Ejecuta `npm run build`:
+   - Primero: `git submodule update --init --recursive` → Clona el juego typing
+   - Después: `next build` → Compila Next.js con los juegos disponibles
+4. Deploy completo con todos los juegos funcionando
+
+**Sin esta configuración:** Los juegos darían 404 en producción.
 
 ---
 
@@ -267,17 +305,24 @@ mi-portfolio/
 
 ### Cuando trabajes con este proyecto:
 
-1. **Submodules:** Recuerda que los juegos en `public/games/` son Git Submodules. No edites directamente, trabaja en el repo original del juego.
+1. **⚠️ BUILD CRÍTICO:** El script `build` en `package.json` DEBE incluir `git submodule update --init --recursive`. Sin esto, los juegos no funcionarán en producción (Vercel). NO modifiques este script sin actualizar esta documentación.
 
-2. **Rutas:** Todos los juegos se sirven desde `/games/[nombre-juego]`, NO desde subdominios.
+2. **Submodules:** Recuerda que los juegos en `public/games/` son Git Submodules. No edites directamente, trabaja en el repo original del juego.
 
-3. **Traducciones:** Cualquier texto nuevo debe añadirse tanto en inglés como español en `translations.ts`.
+3. **Routing de Juegos:** Cada juego necesita:
+   - Página de redirect en `src/app/games/[nombre]/page.tsx`
+   - Archivos estáticos en `public/games/[nombre]/` (submodule)
+   - Entrada en el array de juegos en `src/app/games/page.tsx`
 
-4. **Navbar:** Al añadir nuevas secciones, actualiza tanto desktop como mobile menu en `Navbar.tsx`.
+4. **Rutas:** Todos los juegos se sirven desde `/games/[nombre-juego]`, NO desde subdominios.
 
-5. **Deployment:** Los cambios en `main` se despliegan automáticamente en Vercel. No es necesario configuración manual.
+5. **Traducciones:** El proyecto ahora está SOLO en inglés. Se eliminaron todas las traducciones. Todo el contenido está hardcodeado en inglés.
 
-6. **Testing local:** Para probar con juegos, asegúrate de tener los submodules inicializados (`git submodule update --init`).
+6. **Navbar:** Al añadir nuevas secciones, actualiza tanto desktop como mobile menu en `Navbar.tsx`.
+
+7. **Deployment:** Los cambios en `main` se despliegan automáticamente en Vercel. No es necesario configuración manual.
+
+8. **Testing local:** Para probar con juegos, asegúrate de tener los submodules inicializados (`npm run games:init`).
 
 ---
 
@@ -289,6 +334,11 @@ mi-portfolio/
 - ✅ Migrado Typing Defense a submodule en `public/games/typing/`
 - ✅ Actualizado Navbar con link a Games
 - ✅ Documentación completa en CLAUDE.md
+- ✅ Eliminado sistema de traducciones (i18n) - Todo en inglés
+- ✅ Fix layout shift con scrollbar-gutter
+- ✅ Estandarizado max-width en todas las páginas
+- ✅ **CRÍTICO:** Añadido `git submodule update --init` al build script para Vercel
+- ✅ Creada página de redirect para `/games/typing`
 
 ---
 

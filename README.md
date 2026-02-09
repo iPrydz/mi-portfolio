@@ -92,7 +92,7 @@ Ver [`CLAUDE.md`](./CLAUDE.md) para más detalles sobre la arquitectura.
 - **Frontend:** React 19, TypeScript
 - **Estilos:** Tailwind CSS 4
 - **Deployment:** Vercel
-- **i18n:** Inglés / Español
+- **Idioma:** Inglés
 
 ---
 
@@ -104,15 +104,13 @@ mi-portfolio/
 │   ├── app/
 │   │   ├── page.tsx                 # Home (CV)
 │   │   ├── projects/page.tsx        # Portfolio de proyectos
-│   │   ├── games/page.tsx           # Landing de minijuegos
+│   │   ├── games/
+│   │   │   ├── page.tsx             # Landing de minijuegos
+│   │   │   └── typing/page.tsx      # Redirect a typing game
 │   │   ├── miniatures/page.tsx      # Galería de miniaturas
 │   │   └── contact/page.tsx         # Contacto
-│   ├── components/
-│   │   └── Navbar.tsx               # Navegación principal
-│   ├── lib/
-│   │   └── translations.ts          # Traducciones EN/ES
-│   └── hooks/
-│       └── useLanguage.ts           # Hook de idioma
+│   └── components/
+│       └── Navbar.tsx               # Navegación principal
 ├── public/
 │   ├── images/                      # Imágenes del portfolio
 │   └── games/                       # Juegos (Git Submodules)
@@ -127,7 +125,7 @@ mi-portfolio/
 
 ```bash
 npm run dev          # Servidor de desarrollo
-npm run build        # Build de producción
+npm run build        # Build de producción (incluye inicialización de submodules)
 npm run start        # Iniciar servidor de producción
 npm run lint         # Linter
 
@@ -137,13 +135,16 @@ npm run games:update # Actualizar todos los juegos
 npm run games:init   # Inicializar submodules
 ```
 
+**⚠️ Nota sobre el build:**
+El script `npm run build` ejecuta automáticamente `git submodule update --init --recursive` antes de compilar. Esto asegura que los juegos estén disponibles tanto en desarrollo como en producción (Vercel).
+
 ---
 
-## 🌍 Internacionalización
+## 🌍 Idioma
 
-El portfolio soporta **Inglés** y **Español** mediante `src/lib/translations.ts`.
+El portfolio está completamente en **inglés**.
 
-Para añadir nuevas traducciones, edita el archivo y añade tanto la versión en inglés (`en`) como en español (`es`).
+**Nota:** El sistema de traducciones (i18n) fue eliminado. Todo el contenido está hardcodeado en inglés directamente en cada componente.
 
 ---
 
@@ -156,7 +157,13 @@ Para añadir nuevas traducciones, edita el archivo y añade tanto la versión en
 - Push a `main` → Deploy automático
 - Pull Request → Preview deployment
 
-Vercel detecta y clona automáticamente los submodules durante el build.
+### Build process:
+El comando de build (`npm run build`) incluye la inicialización de submodules:
+```bash
+git submodule update --init --recursive && next build
+```
+
+Esto asegura que todos los juegos estén disponibles en producción. Sin este paso, los juegos en `public/games/` no estarían disponibles en el deployment de Vercel.
 
 ---
 
