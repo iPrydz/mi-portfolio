@@ -3,26 +3,25 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { translations, Project } from '../../lib/translations';
-import { useLanguage } from '../../hooks/useLanguage';
 import Navbar from '../../components/Navbar';
 
 export default function ProjectsPage() {
-  const { lang, setLang, isLoaded } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const t = translations[lang];
+  const t = translations;
   const projectsT = t.projects;
 
-  const filteredProjects = selectedCategory === 'all' 
-    ? projectsT.projectsList 
-    : projectsT.projectsList.filter((p: Project) => p.category === selectedCategory);
+  // Sort projects by year (descending - most recent first)
+  const sortedProjects = [...projectsT.projectsList].sort((a, b) =>
+    parseInt(b.year) - parseInt(a.year)
+  );
 
-  if (!isLoaded) {
-    return null;
-  }
+  const filteredProjects = selectedCategory === 'all'
+    ? sortedProjects
+    : sortedProjects.filter((p: Project) => p.category === selectedCategory);
 
   return (
     <>
-      <Navbar lang={lang} setLang={setLang} translations={t} />
+      <Navbar translations={t} />
       
       <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-700 text-white pt-16">
         <div className="container mx-auto px-4 py-12 max-w-6xl">
@@ -52,13 +51,14 @@ export default function ProjectsPage() {
             ))}
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+          <div className="space-y-4">
             {filteredProjects.map((project: Project) => (
-              <div
+              <Link
                 key={project.id}
-                className="bg-slate-800/50 rounded-xl overflow-hidden backdrop-blur-sm hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 group flex flex-col"
+                href={`/projects/${project.id}`}
+                className="flex items-center gap-4 bg-slate-800/50 rounded-xl overflow-hidden backdrop-blur-sm hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 group p-4 cursor-pointer hover:bg-slate-800/70"
               >
-                <div className="relative h-56 bg-slate-700 overflow-hidden">
+                <div className="relative w-32 h-24 flex-shrink-0 bg-slate-700 rounded-lg overflow-hidden">
                   <img
                     src={project.image}
                     alt={project.title}
@@ -75,61 +75,58 @@ export default function ProjectsPage() {
                     }}
                   />
                   <div className="fallback-icon absolute inset-0 hidden items-center justify-center bg-gradient-to-br from-blue-500/20 to-purple-500/20">
-                    <span className="text-6xl opacity-30">🎮</span>
+                    <span className="text-3xl opacity-30">🎮</span>
                   </div>
                 </div>
 
-                <div className="p-6 flex flex-col flex-1">
-                  <div className="mb-3 flex items-center justify-between">
-                    <span className="inline-block px-3 py-1 bg-green-500/20 text-green-400 text-xs font-semibold rounded-full">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-3 mb-2">
+                    <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors truncate">
+                      {project.title}
+                    </h3>
+                    {/* Desktop: Show status and year */}
+                    <span className="hidden md:inline-block px-2 py-1 bg-green-500/20 text-green-400 text-xs font-semibold rounded-full flex-shrink-0">
+                      {project.status}
+                    </span>
+                    <span className="hidden md:block text-slate-400 text-sm flex-shrink-0">{project.year}</span>
+                  </div>
+
+                  <p className="text-slate-300 text-sm line-clamp-2 mb-2">
+                    {project.shortDesc}
+                  </p>
+
+                  {/* Desktop: Show technologies */}
+                  <div className="hidden md:flex flex-wrap gap-2">
+                    {project.technologies.slice(0, 4).map((tech: string, index: number) => (
+                      <span
+                        key={index}
+                        className="px-2 py-1 bg-slate-700 text-slate-300 text-xs rounded-full"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                    {project.technologies.length > 4 && (
+                      <span className="px-2 py-1 text-slate-400 text-xs">
+                        +{project.technologies.length - 4}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Mobile: Show status and year instead of technologies */}
+                  <div className="flex md:hidden items-center gap-2">
+                    <span className="inline-block px-2 py-1 bg-green-500/20 text-green-400 text-xs font-semibold rounded-full">
                       {project.status}
                     </span>
                     <span className="text-slate-400 text-sm">{project.year}</span>
                   </div>
-
-                  <h3 className="text-2xl font-bold mb-3 text-white group-hover:text-blue-400 transition-colors">
-                    {project.title}
-                  </h3>
-                  
-                  <p className="text-slate-300 mb-4 leading-relaxed line-clamp-3 flex-grow">
-                    {project.shortDesc}
-                  </p>
-
-                  <div className="mb-4">
-                    <p className="text-sm text-slate-400 mb-2">{projectsT.technologies}:</p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.map((tech: string, index: number) => (
-                        <span
-                          key={index}
-                          className="px-3 py-1 bg-slate-700 text-slate-300 text-sm rounded-full"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="space-y-2 mt-auto">
-                    <a 
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block w-full text-center bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
-                    >
-                      {project.category === 'published' ? projectsT.viewOnStore : 
-                       project.category === 'gamejam' ? projectsT.viewOnGGJ :
-                       projectsT.downloadGame} →
-                    </a>
-                    
-                    <Link
-                      href={`/projects/${project.id}`}
-                      className="inline-block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
-                    >
-                      {projectsT.viewDetails}
-                    </Link>
-                  </div>
                 </div>
-              </div>
+
+                <div className="flex-shrink-0 text-blue-400 group-hover:translate-x-1 transition-transform">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </Link>
             ))}
           </div>
 

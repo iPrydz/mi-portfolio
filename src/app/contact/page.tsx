@@ -3,11 +3,9 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { translations } from '../../lib/translations';
-import { useLanguage } from '../../hooks/useLanguage';
 import Navbar from '../../components/Navbar';
 
 export default function ContactPage() {
-  const { lang, setLang, isLoaded } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -16,7 +14,7 @@ export default function ContactPage() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const t = translations[lang];
+  const t = translations;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,14 +33,14 @@ export default function ContactPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Error al enviar el mensaje');
+        throw new Error(data.error || 'Error sending message');
       }
 
       setStatus('success');
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
       setStatus('error');
-      setErrorMessage(error instanceof Error ? error.message : 'Error al enviar el mensaje');
+      setErrorMessage(error instanceof Error ? error.message : 'Error sending message');
     }
   };
 
@@ -53,25 +51,19 @@ export default function ContactPage() {
     });
   };
 
-  if (!isLoaded) {
-    return null;
-  }
-
   return (
     <>
-      <Navbar lang={lang} setLang={setLang} translations={t} />
+      <Navbar translations={t} />
       
       <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-700 text-white pt-16">
         <div className="container mx-auto px-4 py-12 max-w-2xl">
           
           <div className="mb-12">
             <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              {lang === 'en' ? 'Contact Me' : 'Contáctame'}
+              Contact Me
             </h1>
             <p className="text-xl text-slate-300">
-              {lang === 'en' 
-                ? "Have a project in mind? Let's talk!" 
-                : '¿Tienes un proyecto en mente? ¡Hablemos!'}
+              Have a project in mind? Let's talk!
             </p>
           </div>
 
@@ -80,7 +72,7 @@ export default function ContactPage() {
               
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">
-                  {lang === 'en' ? 'Name' : 'Nombre'}
+                  Name
                 </label>
                 <input
                   type="text"
@@ -90,7 +82,7 @@ export default function ContactPage() {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
-                  placeholder={lang === 'en' ? 'Your name' : 'Tu nombre'}
+                  placeholder="Your name"
                 />
               </div>
 
@@ -112,7 +104,7 @@ export default function ContactPage() {
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">
-                  {lang === 'en' ? 'Message' : 'Mensaje'}
+                  Message
                 </label>
                 <textarea
                   id="message"
@@ -122,15 +114,13 @@ export default function ContactPage() {
                   required
                   rows={6}
                   className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white resize-none"
-                  placeholder={lang === 'en' ? 'Your message...' : 'Tu mensaje...'}
+                  placeholder="Your message..."
                 />
               </div>
 
               {status === 'success' && (
                 <div className="bg-green-500/20 border border-green-500 text-green-400 px-4 py-3 rounded-lg">
-                  {lang === 'en' 
-                    ? '✓ Message sent successfully! I will get back to you soon.' 
-                    : '✓ ¡Mensaje enviado con éxito! Te responderé pronto.'}
+                  ✓ Message sent successfully! I will get back to you soon.
                 </div>
               )}
 
@@ -145,18 +135,16 @@ export default function ContactPage() {
                 disabled={status === 'loading'}
                 className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-slate-600 disabled:cursor-not-allowed text-white font-semibold px-6 py-3 rounded-lg transition-colors"
               >
-                {status === 'loading' 
-                  ? (lang === 'en' ? 'Sending...' : 'Enviando...') 
-                  : (lang === 'en' ? 'Send Message' : 'Enviar Mensaje')}
+                {status === 'loading' ? 'Sending...' : 'Send Message'}
               </button>
             </form>
 
             <div className="mt-8 pt-8 border-t border-slate-700">
               <p className="text-slate-400 text-center">
-                {lang === 'en' ? 'Or email me directly at:' : 'O escríbeme directamente a:'}
+                Or email me directly at:
               </p>
-              <a 
-                href="mailto:hello@amoniz.dev" 
+              <a
+                href="mailto:hello@amoniz.dev"
                 className="block text-center text-blue-400 hover:text-blue-300 font-semibold mt-2"
               >
                 hello@amoniz.dev
