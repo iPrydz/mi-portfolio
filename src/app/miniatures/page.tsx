@@ -8,7 +8,7 @@ export default function MiniaturesPage() {
       <Navbar />
 
       <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-700 text-white pt-16">
-        <div className="container mx-auto px-4 py-12 max-w-5xl">
+        <div className="container mx-auto px-4 py-12 max-w-4xl">
 
           {/* Header */}
           <div className="mb-12">
