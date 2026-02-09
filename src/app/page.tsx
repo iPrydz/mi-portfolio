@@ -4,7 +4,7 @@ import { translations } from '@/lib/translations';
 import Navbar from '@/components/Navbar';
 
 export default function Home() {
-  const t = translations;
+  const t = translations.es;  // Español por defecto
   const cv = t.cv;
 
   return (

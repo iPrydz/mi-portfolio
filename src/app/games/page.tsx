@@ -4,7 +4,7 @@ import { translations } from '@/lib/translations';
 import Navbar from '@/components/Navbar';
 
 export default function GamesPage() {
-  const t = translations;
+  const t = translations.es;  // Español por defecto
 
   const games = [
     {
