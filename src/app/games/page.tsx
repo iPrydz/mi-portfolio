@@ -12,22 +12,6 @@ export default function GamesPage() {
       tech: ["Vanilla JS", "Canvas", "Roguelike"],
       url: "/games/typing",
       comingSoon: false
-    },
-    {
-      title: "Coming Soon",
-      icon: "🎯",
-      description: "Next game in development. Stay tuned for more updates...",
-      tech: ["TBA"],
-      url: "#",
-      comingSoon: true
-    },
-    {
-      title: "Coming Soon",
-      icon: "🎲",
-      description: "More experimental games on the way. Exploring new mechanics and styles...",
-      tech: ["TBA"],
-      url: "#",
-      comingSoon: true
     }
   ];
 
@@ -36,67 +20,59 @@ export default function GamesPage() {
       <Navbar />
 
       <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-700 text-white pt-16">
-        <div className="container mx-auto px-4 py-12 max-w-4xl">
+        <div className="container mx-auto px-4 py-12 max-w-6xl">
 
-          {/* Profile Section */}
-          <header className="text-center mb-12 py-12">
-            <div className="flex justify-center mb-8">
-              <div className="relative">
-                {/* Animated gradient border */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-full blur opacity-75 animate-pulse"></div>
-
-                {/* Icon container */}
-                <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center border-4 border-slate-800 shadow-2xl">
-                  <span className="text-7xl md:text-8xl grayscale">🎮</span>
-                </div>
-              </div>
-            </div>
-
-            <h1 className="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              Games Collection
+          <div className="mb-12">
+            <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              My Games
             </h1>
-            <p className="text-2xl text-slate-300 mb-2">
-              Retro & Experimental Mini-games
+            <p className="text-xl text-slate-300">
+              A collection of my experimental mini-games
             </p>
-            <p className="text-slate-400">
-              Made with ❤️ in Barcelona
-            </p>
-          </header>
+          </div>
 
           {/* Games Section */}
           <section className="mb-12">
-            <h2 className="text-3xl font-bold mb-6 text-blue-400 flex items-center gap-2">
-              <span>🕹️</span> Available Games
-            </h2>
+            <div className="space-y-4">
 
-            <div className="grid md:grid-cols-1 gap-6">
               {games.map((game, index) => (
                 <a
                   key={index}
-                  href={game.comingSoon ? undefined : game.url}
-                  className={`bg-slate-800/50 rounded-xl p-6 backdrop-blur-sm transition-all ${
-                    game.comingSoon
-                      ? 'opacity-50 cursor-not-allowed'
-                      : 'hover:transform hover:-translate-y-1 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/20 cursor-pointer'
-                  } border border-slate-700`}
-                  onClick={(e) => game.comingSoon && e.preventDefault()}
+                  href={game.url}
+                  className="flex items-center gap-4 bg-slate-800/50 rounded-xl overflow-hidden backdrop-blur-sm hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 group p-4 cursor-pointer hover:bg-slate-800/70"
                 >
-                  <div className="flex items-center gap-4 mb-3">
+                  <div className="relative w-32 h-24 flex-shrink-0 bg-slate-700 rounded-lg overflow-hidden flex items-center justify-center">
                     <span className="text-5xl grayscale">{game.icon}</span>
-                    <h3 className="text-xl md:text-2xl font-bold text-white">{game.title}</h3>
                   </div>
-                  <p className="text-slate-300 mb-4 leading-relaxed">
-                    {game.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {game.tech.map((tech, techIndex) => (
-                      <span
-                        key={techIndex}
-                        className="bg-blue-500/10 text-blue-400 px-3 py-1 rounded-md text-sm border border-blue-500/30"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-3 mb-2">
+                      <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors truncate">
+                        {game.title}
+                      </h3>
+                    </div>
+
+                    <p className="text-slate-300 text-sm line-clamp-2 mb-2">
+                      {game.description}
+                    </p>
+
+                    {/* Technologies */}
+                    <div className="flex flex-wrap gap-2">
+                      {game.tech.map((tech, techIndex) => (
+                        <span
+                          key={techIndex}
+                          className="px-2 py-1 bg-slate-700 text-slate-300 text-xs rounded-full"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex-shrink-0 text-blue-400 group-hover:translate-x-1 transition-transform">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
                   </div>
                 </a>
               ))}
