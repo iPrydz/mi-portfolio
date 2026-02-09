@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "games:update": "git submodule update --remote --merge",
+    "games:status": "git submodule status",
+    "games:init": "git submodule update --init --recursive"
   },
   "dependencies": {
     "next": "16.0.0",

@@ -3,6 +3,7 @@ export const translations = {
     nav: {
       home: "Home",
       projects: "Projects",
+      games: "Games",
       miniatures: "Miniatures",
       contact: "Contact"
     },
@@ -149,6 +150,7 @@ export const translations = {
     nav: {
       home: "Inicio",
       projects: "Proyectos",
+      games: "Juegos",
       miniatures: "Miniaturas",
       contact: "Contacto"
     },

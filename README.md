@@ -1,36 +1,197 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎨 Portfolio - Alejandro Moñiz Mesa
 
-## Getting Started
+Portfolio personal y colección de minijuegos desarrollados con Next.js 15 y React 19.
 
-First, run the development server:
+**🌐 Live:** [amoniz.dev](https://amoniz.dev)
+
+---
+
+## 📋 Sobre el Proyecto
+
+Portfolio profesional que incluye:
+- **CV/Resume** - Experiencia laboral y habilidades
+- **Proyectos** - Portfolio de videojuegos publicados
+- **Games** - Colección de minijuegos experimentales
+- **Miniaturas** - Galería de miniaturas pintadas
+- **Contacto** - Formulario de contacto
+
+---
+
+## 🚀 Quick Start
+
+### Clonar el repositorio (con submodules):
 
 ```bash
+git clone --recurse-submodules https://github.com/iPrydz/mi-portfolio.git
+cd mi-portfolio
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**⚠️ Importante:** Usa `--recurse-submodules` para clonar también los juegos.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Si ya clonaste sin submodules:
+```bash
+npm run games:init
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Abre [http://localhost:3000](http://localhost:3000) para ver el resultado.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🎮 Sistema de Juegos (Git Submodules)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Los minijuegos están organizados como **Git Submodules** en `public/games/`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+public/games/
+└── typing/          ← Git Submodule (github.com/iPrydz/games)
+    ├── index.html
+    ├── game.js
+    └── style.css
+```
 
-## Deploy on Vercel
+**URLs:**
+- Landing: `/games` → Lista de todos los juegos
+- Typing Defense: `/games/typing` → Juego completo
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Gestionar Submodules:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+# Ver estado de los juegos
+npm run games:status
+
+# Actualizar todos los juegos a la última versión
+npm run games:update
+
+# Inicializar submodules (si clonaste sin --recurse-submodules)
+npm run games:init
+```
+
+### Añadir un nuevo juego:
+
+```bash
+# 1. Añadir como submodule
+git submodule add https://github.com/iPrydz/nuevo-juego.git public/games/nuevo-juego
+
+# 2. Actualizar src/app/games/page.tsx con el nuevo juego
+
+# 3. Commit
+git add .
+git commit -m "Add: nuevo-juego as submodule"
+git push
+```
+
+Ver [`CLAUDE.md`](./CLAUDE.md) para más detalles sobre la arquitectura.
+
+---
+
+## 🛠️ Tecnologías
+
+- **Framework:** Next.js 15 (App Router)
+- **Frontend:** React 19, TypeScript
+- **Estilos:** Tailwind CSS 4
+- **Deployment:** Vercel
+- **i18n:** Inglés / Español
+
+---
+
+## 📁 Estructura del Proyecto
+
+```
+mi-portfolio/
+├── src/
+│   ├── app/
+│   │   ├── page.tsx                 # Home (CV)
+│   │   ├── projects/page.tsx        # Portfolio de proyectos
+│   │   ├── games/page.tsx           # Landing de minijuegos
+│   │   ├── miniatures/page.tsx      # Galería de miniaturas
+│   │   └── contact/page.tsx         # Contacto
+│   ├── components/
+│   │   └── Navbar.tsx               # Navegación principal
+│   ├── lib/
+│   │   └── translations.ts          # Traducciones EN/ES
+│   └── hooks/
+│       └── useLanguage.ts           # Hook de idioma
+├── public/
+│   ├── images/                      # Imágenes del portfolio
+│   └── games/                       # Juegos (Git Submodules)
+│       └── typing/                  # Submodule: Typing Defense
+├── CLAUDE.md                        # Documentación para Claude
+└── README.md                        # Este archivo
+```
+
+---
+
+## 📜 Scripts Disponibles
+
+```bash
+npm run dev          # Servidor de desarrollo
+npm run build        # Build de producción
+npm run start        # Iniciar servidor de producción
+npm run lint         # Linter
+
+# Gestión de juegos (submodules)
+npm run games:status # Ver estado de submodules
+npm run games:update # Actualizar todos los juegos
+npm run games:init   # Inicializar submodules
+```
+
+---
+
+## 🌍 Internacionalización
+
+El portfolio soporta **Inglés** y **Español** mediante `src/lib/translations.ts`.
+
+Para añadir nuevas traducciones, edita el archivo y añade tanto la versión en inglés (`en`) como en español (`es`).
+
+---
+
+## 🚀 Deployment
+
+**Plataforma:** Vercel
+**Dominio:** `amoniz.dev`
+
+### Auto-deploy:
+- Push a `main` → Deploy automático
+- Pull Request → Preview deployment
+
+Vercel detecta y clona automáticamente los submodules durante el build.
+
+---
+
+## 📝 Documentación Adicional
+
+- [`CLAUDE.md`](./CLAUDE.md) - Arquitectura detallada y contexto para Claude
+- [Next.js Docs](https://nextjs.org/docs) - Documentación de Next.js
+- [Tailwind CSS](https://tailwindcss.com/docs) - Documentación de Tailwind
+
+---
+
+## 🤝 Contribuir
+
+Este es un proyecto personal, pero sugerencias son bienvenidas:
+
+1. Fork el proyecto
+2. Crea una branch (`git checkout -b feature/nueva-funcionalidad`)
+3. Commit tus cambios (`git commit -m 'Add: nueva funcionalidad'`)
+4. Push a la branch (`git push origin feature/nueva-funcionalidad`)
+5. Abre un Pull Request
+
+---
+
+## 📜 Licencia
+
+MIT License - © 2025 Alejandro Moñiz Mesa
+
+---
+
+## 🔗 Links
+
+- **Portfolio:** [amoniz.dev](https://amoniz.dev)
+- **Games:** [amoniz.dev/games](https://amoniz.dev/games)
+- **GitHub:** [github.com/iPrydz](https://github.com/iPrydz)
+
+---
+
+**Última actualización:** Febrero 2025

@@ -61,26 +61,32 @@ export default function Navbar({ lang, setLang, translations }: NavbarProps) {
 
             {/* Desktop Menu - After Logo */}
             <div className="hidden md:flex items-center gap-6">
-              <Link 
-                href="/" 
+              <Link
+                href="/"
                 className="text-slate-300 hover:text-white transition-colors"
               >
                 {t.nav.home}
               </Link>
-              <Link 
-                href="/projects" 
+              <Link
+                href="/projects"
                 className="text-slate-300 hover:text-white transition-colors"
               >
                 {t.nav.projects}
               </Link>
-              <Link 
-                href="/miniatures" 
+              <Link
+                href="/games"
+                className="text-slate-300 hover:text-white transition-colors"
+              >
+                {t.nav.games}
+              </Link>
+              <Link
+                href="/miniatures"
                 className="text-slate-300 hover:text-white transition-colors"
               >
                 {t.nav.miniatures}
               </Link>
-              <Link 
-                href="/contact" 
+              <Link
+                href="/contact"
                 className="text-slate-300 hover:text-white transition-colors"
               >
                 {t.nav.contact}
@@ -152,29 +158,36 @@ export default function Navbar({ lang, setLang, translations }: NavbarProps) {
 
               {/* Menu items */}
               <div className="flex flex-col gap-2">
-                <Link 
-                  href="/" 
+                <Link
+                  href="/"
                   className="text-slate-300 hover:text-white hover:bg-slate-800 transition-all py-3 px-4 rounded-lg text-center"
                   onClick={closeMenu}
                 >
                   {t.nav.home}
                 </Link>
-                <Link 
-                  href="/projects" 
+                <Link
+                  href="/projects"
                   className="text-slate-300 hover:text-white hover:bg-slate-800 transition-all py-3 px-4 rounded-lg text-center"
                   onClick={closeMenu}
                 >
                   {t.nav.projects}
                 </Link>
-                <Link 
-                  href="/miniatures" 
+                <Link
+                  href="/games"
+                  className="text-slate-300 hover:text-white hover:bg-slate-800 transition-all py-3 px-4 rounded-lg text-center"
+                  onClick={closeMenu}
+                >
+                  {t.nav.games}
+                </Link>
+                <Link
+                  href="/miniatures"
                   className="text-slate-300 hover:text-white hover:bg-slate-800 transition-all py-3 px-4 rounded-lg text-center"
                   onClick={closeMenu}
                 >
                   {t.nav.miniatures}
                 </Link>
-                <Link 
-                  href="/contact" 
+                <Link
+                  href="/contact"
                   className="text-slate-300 hover:text-white hover:bg-slate-800 transition-all py-3 px-4 rounded-lg text-center"
                   onClick={closeMenu}
                 >
