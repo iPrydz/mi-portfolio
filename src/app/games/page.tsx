@@ -1,24 +1,16 @@
 'use client';
 
-import { translations, Language } from '@/lib/translations';
-import { useLanguage } from '@/hooks/useLanguage';
+import { translations } from '@/lib/translations';
 import Navbar from '@/components/Navbar';
 
 export default function GamesPage() {
-  const { lang, setLang, isLoaded } = useLanguage();
-  const t = translations[lang];
-
-  if (!isLoaded) {
-    return null;
-  }
+  const t = translations;
 
   const games = [
     {
       title: "Typing Defense",
       icon: "⌨️",
-      description: lang === 'en'
-        ? "Roguelike typing game with Game & Watch aesthetic. Defend your tower by typing words that attack from all angles. Upgrade system and progression."
-        : "Roguelike typing game con estética Game & Watch. Defiende tu torreta escribiendo palabras que atacan desde todos los ángulos. Sistema de mejoras y progresión.",
+      description: "Roguelike typing game con estética Game & Watch. Defiende tu torreta escribiendo palabras que atacan desde todos los ángulos. Sistema de mejoras y progresión.",
       tech: ["Vanilla JS", "Canvas", "Roguelike"],
       url: "/games/typing",
       comingSoon: false
@@ -26,9 +18,7 @@ export default function GamesPage() {
     {
       title: "Coming Soon",
       icon: "🎯",
-      description: lang === 'en'
-        ? "Next game in development. Stay tuned for more updates..."
-        : "Próximo juego en desarrollo. Stay tuned para más actualizaciones...",
+      description: "Próximo juego en desarrollo. Stay tuned para más actualizaciones...",
       tech: ["TBA"],
       url: "#",
       comingSoon: true
@@ -36,9 +26,7 @@ export default function GamesPage() {
     {
       title: "Coming Soon",
       icon: "🎲",
-      description: lang === 'en'
-        ? "More experimental games on the way. Exploring new mechanics and styles..."
-        : "Más juegos experimentales en camino. Explorando nuevas mecánicas y estilos...",
+      description: "Más juegos experimentales en camino. Explorando nuevas mecánicas y estilos...",
       tech: ["TBA"],
       url: "#",
       comingSoon: true
@@ -47,7 +35,7 @@ export default function GamesPage() {
 
   return (
     <>
-      <Navbar lang={lang} setLang={setLang} translations={t} />
+      <Navbar translations={t} />
 
       <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-700 text-white pt-16">
         <div className="container mx-auto px-4 py-12 max-w-4xl">
@@ -70,17 +58,17 @@ export default function GamesPage() {
               Games Collection
             </h1>
             <p className="text-2xl text-slate-300 mb-2">
-              {lang === 'en' ? 'Retro & Experimental Mini-games' : 'Minijuegos Retro & Experimentales'}
+              Minijuegos Retro & Experimentales
             </p>
             <p className="text-slate-400">
-              {lang === 'en' ? 'Made with ❤️ in Barcelona' : 'Desarrollados con ❤️ en Barcelona'}
+              Desarrollados con ❤️ en Barcelona
             </p>
           </header>
 
           {/* Games Section */}
           <section className="mb-12">
             <h2 className="text-3xl font-bold mb-6 text-blue-400 flex items-center gap-2">
-              <span>🕹️</span> {lang === 'en' ? 'Available Games' : 'Juegos Disponibles'}
+              <span>🕹️</span> Juegos Disponibles
             </h2>
 
             <div className="grid md:grid-cols-1 gap-6">
