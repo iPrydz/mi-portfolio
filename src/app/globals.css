@@ -19,6 +19,12 @@
   }
 }
 
+html {
+  /* Prevent layout shift when scrollbar appears/disappears */
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
