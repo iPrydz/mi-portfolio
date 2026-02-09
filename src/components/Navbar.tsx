@@ -2,15 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Translations } from '@/lib/translations';
 
-interface NavbarProps {
-  translations: Translations;
-}
-
-export default function Navbar({ translations }: NavbarProps) {
+export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const t = translations;
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
@@ -19,7 +13,7 @@ export default function Navbar({ translations }: NavbarProps) {
     <nav className="fixed top-0 left-0 right-0 bg-slate-900/95 backdrop-blur-sm border-b border-slate-800 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          
+
           {/* Left side: Mobile hamburger + Logo + Desktop menu */}
           <div className="flex items-center gap-6">
             {/* Mobile Menu Button - LEFT */}
@@ -42,8 +36,8 @@ export default function Navbar({ translations }: NavbarProps) {
             </button>
 
             {/* Logo */}
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent hover:from-blue-300 hover:to-purple-300 transition-all"
               onClick={closeMenu}
             >
@@ -56,31 +50,31 @@ export default function Navbar({ translations }: NavbarProps) {
                 href="/"
                 className="text-slate-300 hover:text-white transition-colors"
               >
-                {t.nav.home}
+                Home
               </Link>
               <Link
                 href="/projects"
                 className="text-slate-300 hover:text-white transition-colors"
               >
-                {t.nav.projects}
+                Projects
               </Link>
               <Link
                 href="/games"
                 className="text-slate-300 hover:text-white transition-colors"
               >
-                {t.nav.games}
+                Games
               </Link>
               <Link
                 href="/miniatures"
                 className="text-slate-300 hover:text-white transition-colors"
               >
-                {t.nav.miniatures}
+                Miniatures
               </Link>
               <Link
                 href="/contact"
                 className="text-slate-300 hover:text-white transition-colors"
               >
-                {t.nav.contact}
+                Contact
               </Link>
             </div>
           </div>
@@ -92,8 +86,8 @@ export default function Navbar({ translations }: NavbarProps) {
           <div className="md:hidden border-t border-slate-800 animate-fade-in bg-slate-900/98">
             <div className="py-6 px-2">
               {/* Logo repetido en el menú móvil */}
-              <Link 
-                href="/" 
+              <Link
+                href="/"
                 className="block text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-6 text-center"
                 onClick={closeMenu}
               >
@@ -107,35 +101,35 @@ export default function Navbar({ translations }: NavbarProps) {
                   className="text-slate-300 hover:text-white hover:bg-slate-800 transition-all py-3 px-4 rounded-lg text-center"
                   onClick={closeMenu}
                 >
-                  {t.nav.home}
+                  Home
                 </Link>
                 <Link
                   href="/projects"
                   className="text-slate-300 hover:text-white hover:bg-slate-800 transition-all py-3 px-4 rounded-lg text-center"
                   onClick={closeMenu}
                 >
-                  {t.nav.projects}
+                  Projects
                 </Link>
                 <Link
                   href="/games"
                   className="text-slate-300 hover:text-white hover:bg-slate-800 transition-all py-3 px-4 rounded-lg text-center"
                   onClick={closeMenu}
                 >
-                  {t.nav.games}
+                  Games
                 </Link>
                 <Link
                   href="/miniatures"
                   className="text-slate-300 hover:text-white hover:bg-slate-800 transition-all py-3 px-4 rounded-lg text-center"
                   onClick={closeMenu}
                 >
-                  {t.nav.miniatures}
+                  Miniatures
                 </Link>
                 <Link
                   href="/contact"
                   className="text-slate-300 hover:text-white hover:bg-slate-800 transition-all py-3 px-4 rounded-lg text-center"
                   onClick={closeMenu}
                 >
-                  {t.nav.contact}
+                  Contact
                 </Link>
               </div>
             </div>

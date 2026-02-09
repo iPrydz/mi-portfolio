@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { translations } from '../../lib/translations';
 import Navbar from '../../components/Navbar';
 
 export default function ContactPage() {
@@ -13,8 +12,6 @@ export default function ContactPage() {
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
-
-  const t = translations;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,7 +50,7 @@ export default function ContactPage() {
 
   return (
     <>
-      <Navbar translations={t} />
+      <Navbar />
       
       <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-700 text-white pt-16">
         <div className="container mx-auto px-4 py-12 max-w-2xl">

@@ -1,10 +1,8 @@
 'use client';
 
-import { translations } from '@/lib/translations';
 import Navbar from '@/components/Navbar';
 
 export default function GamesPage() {
-  const t = translations.en;  // English by default
 
   const games = [
     {
@@ -35,7 +33,7 @@ export default function GamesPage() {
 
   return (
     <>
-      <Navbar translations={t} />
+      <Navbar />
 
       <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-700 text-white pt-16">
         <div className="container mx-auto px-4 py-12 max-w-4xl">
