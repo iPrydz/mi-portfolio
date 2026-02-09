@@ -2,16 +2,108 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { translations, Project } from '../../lib/translations';
 import Navbar from '../../components/Navbar';
+
+interface Project {
+  id: string;
+  title: string;
+  shortDesc: string;
+  longDesc: string;
+  category: string;
+  technologies: string[];
+  status: string;
+  year: string;
+  link: string;
+  image: string;
+}
 
 export default function ProjectsPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const t = translations;
-  const projectsT = t.projects;
+
+  const projects: Project[] = [
+    {
+      id: "tap-souls",
+      title: "Tap Souls",
+      shortDesc: "Idle clicker RPG combining Souls-like gameplay with incremental mechanics. Published by TaleSoft Studio.",
+      longDesc: "An innovative idle clicker game that merges the challenging Dark Souls aesthetic with addictive incremental gameplay. Players progress through battles, upgrade equipment, and face challenging bosses in this mobile RPG experience.",
+      category: "published",
+      technologies: ["Unity", "C#", "iOS", "Android", "Incremental RPG"],
+      status: "Published",
+      year: "2017-Present",
+      link: "https://play.google.com/store/apps/details?id=com.TaleSoftStudio.TapSouls",
+      image: "/images/projects/tap_souls.png"
+    },
+    {
+      id: "battle-souls",
+      title: "Battle Souls",
+      shortDesc: "Turn-based tactical RPG with stunning visuals and strategic combat. Published by TaleSoft Studio.",
+      longDesc: "A strategic turn-based RPG featuring epic character designs, tactical positioning, and team-building mechanics. Players praised its impressive graphics and engaging combat system.",
+      category: "published",
+      technologies: ["Unity", "C#", "iOS", "Android", "Tactical RPG"],
+      status: "Published",
+      year: "2017-Present",
+      link: "https://play.google.com/store/apps/details?id=com.TaleSoftStudio.BattleSouls",
+      image: "/images/projects/battle_souls.png"
+    },
+    {
+      id: "bubblelonia",
+      title: "Bubblelonia",
+      shortDesc: "Global Game Jam 2025 entry with the theme 'Bubble'. Latest game jam project showcasing creative game design under time constraints.",
+      longDesc: "Developed during Global Game Jam 2025 with the theme 'Bubble'. Part of the world's largest game creation event where 35,371 participants across 97 countries created 12,098 games in 48 hours.",
+      category: "gamejam",
+      technologies: ["Game Jam", "Rapid Prototyping", "Unity", "GGJ"],
+      status: "Game Jam Entry",
+      year: "2025",
+      link: "https://globalgamejam.org/games/2025/bubbelonia-3",
+      image: "/images/projects/bubblelonia.jpg"
+    },
+    {
+      id: "fearless",
+      title: "Fearless",
+      shortDesc: "Final course project developed at EMAID (Escola Municipal d'Art i Disseny). A complete game showcasing learned skills in game development.",
+      longDesc: "Comprehensive game project developed as the culmination of video game development studies at EMAID. This project demonstrates proficiency in game design, programming, and production.",
+      category: "student",
+      technologies: ["Unity", "C#", "Level Design", "Game Production"],
+      status: "Completed",
+      year: "2014-2016",
+      link: "https://mega.nz/file/XUQyzRyC#sr1CjrDASd-LYUv-ePxmZSKAimCztZu2Y1JVEJj_y3k",
+      image: "/images/projects/fearless.png"
+    },
+    {
+      id: "mirror-hotel",
+      title: "Mirror Hotel",
+      shortDesc: "Global Game Jam 2015 entry. Created in 48 hours during the world's largest game creation event.",
+      longDesc: "Developed during Global Game Jam 2015 with the theme 'What do we do now?'. Part of an event where 28,837 participants in 78 countries created 5,438 games in one weekend.",
+      category: "gamejam",
+      technologies: ["Unity", "C#", "Level Design", "Game Production", "GGJ"],
+      status: "Game Jam Entry",
+      year: "2015",
+      link: "https://globalgamejam.org/2015/games/mirror-hotel",
+      image: "/images/projects/mirror_hotel.jpg"
+    },
+    {
+      id: "hitodama",
+      title: "Hitodama",
+      shortDesc: "Global Game Jam 2016 entry with the theme 'Ritual'. Created collaboratively in 48 hours.",
+      longDesc: "Game jam project developed for Global Game Jam 2016 under the theme 'Ritual'. Part of a worldwide event with over 36,164 participants across 93 countries creating nearly 6,800 games.",
+      category: "gamejam",
+      technologies: ["Unity", "C#", "Level Design", "Game Production", "GGJ"],
+      status: "Game Jam Entry",
+      year: "2016",
+      link: "https://globalgamejam.org/2016/games/hitodama",
+      image: "/images/projects/hitodama.jpg"
+    }
+  ];
+
+  const categories = {
+    all: "All",
+    published: "Published Games",
+    gamejam: "Game Jam",
+    student: "Student Projects"
+  };
 
   // Sort projects by year (descending - most recent first)
-  const sortedProjects = [...projectsT.projectsList].sort((a, b) =>
+  const sortedProjects = [...projects].sort((a, b) =>
     parseInt(b.year) - parseInt(a.year)
   );
 
@@ -21,22 +113,22 @@ export default function ProjectsPage() {
 
   return (
     <>
-      <Navbar translations={t} />
-      
+      <Navbar />
+
       <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-700 text-white pt-16">
         <div className="container mx-auto px-4 py-12 max-w-6xl">
-          
+
           <div className="mb-12">
             <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              {projectsT.title}
+              My Projects
             </h1>
             <p className="text-xl text-slate-300">
-              {projectsT.subtitle}
+              A collection of my game development projects
             </p>
           </div>
 
           <div className="flex flex-wrap gap-3 mb-8">
-            {Object.entries(projectsT.categories).map(([key, label]) => (
+            {Object.entries(categories).map(([key, label]) => (
               <button
                 key={key}
                 onClick={() => setSelectedCategory(key)}
