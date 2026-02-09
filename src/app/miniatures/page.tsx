@@ -4,7 +4,7 @@ import { translations } from '@/lib/translations';
 import Navbar from '@/components/Navbar';
 
 export default function MiniaturesPage() {
-  const t = translations;
+  const t = translations.en;
   const minT = t.miniatures;
 
   return (
@@ -229,8 +229,8 @@ export default function MiniaturesPage() {
           {/* Contact Button */}
           <section className="mb-12">
             <div className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl p-8 backdrop-blur-sm border border-blue-500/30 text-center">
-              <h3 className="text-2xl font-bold mb-4 text-white">Ready to get started?</h3>
-              <p className="text-slate-300 mb-6">Send me your STL files and let's bring your miniature to life!</p>
+              <h3 className="text-2xl font-bold mb-4 text-white">{minT.readyToStart}</h3>
+              <p className="text-slate-300 mb-6">{minT.readyToStartDesc}</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
                   href="mailto:hello@amoniz.dev"

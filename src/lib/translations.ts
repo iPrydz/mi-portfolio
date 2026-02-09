@@ -144,6 +144,49 @@ export const translations = {
           image: "/images/projects/hitodama.jpg"
         }
       ]
+    },
+    miniatures: {
+      title: "3D Printing Miniatures",
+      subtitle: "Custom & Pre-Made Miniatures",
+      location: "Based in Barcelona, Spain 🇪🇸",
+      designOwnTitle: "Design Your Own Miniature",
+      designOwnSubtitle: "Create a unique miniature using Hero Forge and I'll print it for you",
+      step1Title: "Design Your Character",
+      step1Desc: "Use Hero Forge to create your custom miniature with thousands of customization options",
+      step2Title: "Export & Send STL Files",
+      step2Desc: "Download your STL files and send them to me via email or contact form",
+      step2Note: "Make sure to download the STL files (not screenshots or other formats)",
+      step2Tip: "Hero Forge provides both supported and unsupported STL versions - I recommend sending both",
+      step3Title: "I'll Print & Ship It",
+      step3Desc: "I'll print your miniature with high-quality resin, clean it, prime it, and ship it to you ready to paint",
+      heroForgeButton: "Design on Hero Forge",
+      preMadeTitle: "Use Pre-Made Miniature",
+      preMadeDesc: "Prefer a pre-designed miniature? Choose from thousands of ready-to-print models",
+      preMadeRecommendation: "I recommend these creators for high-quality STL files:",
+      preMadeLinks: {
+        fleshOfGods: "Flesh of Gods - Epic fantasy characters",
+        lootStudios: "Loot Studios - Monthly miniature packs",
+        bestiarumGames: "Bestiarum Games - Creatures & monsters"
+      },
+      pricingTitle: "Pricing",
+      pricingSubtitle: "Transparent pricing based on size and complexity",
+      miniaturesSizeTitle: "Miniatures (by size)",
+      price4_5cm: "4-5cm (Small) - €5",
+      price5_5_5cm: "5-5.5cm (Medium) - €6",
+      priceLarger: "Larger sizes - Ask for quote",
+      basesTitle: "Bases",
+      priceSimpleBase: "Simple base (32mm) - Free",
+      priceDetailedBase: "Detailed/custom base - +€2",
+      includedTitle: "What's included",
+      includedClean: "Cleaned and cured resin print",
+      includedPrimer: "Primed with gray primer (ready to paint)",
+      noCommitment: "Prices are estimates - no commitment required until we discuss your specific miniature",
+      specsTitle: "Technical Specifications",
+      maxSize: "Max build volume",
+      maxSizeValue: "16.5cm (H) x 8cm (W) x 8cm (D)",
+      readyToStart: "Ready to get started?",
+      readyToStartDesc: "Send me your STL files and let's bring your miniature to life!",
+      contactButton: "Contact Form"
     }
   },
   es: {
@@ -291,6 +334,49 @@ export const translations = {
           image: "/images/projects/hitodama.jpg"
         }
       ]
+    },
+    miniatures: {
+      title: "Impresión 3D de Miniaturas",
+      subtitle: "Miniaturas Personalizadas y Prediseñadas",
+      location: "Basado en Barcelona, España 🇪🇸",
+      designOwnTitle: "Diseña Tu Propia Miniatura",
+      designOwnSubtitle: "Crea una miniatura única usando Hero Forge y yo la imprimo para ti",
+      step1Title: "Diseña Tu Personaje",
+      step1Desc: "Usa Hero Forge para crear tu miniatura personalizada con miles de opciones de personalización",
+      step2Title: "Exporta y Envía Archivos STL",
+      step2Desc: "Descarga tus archivos STL y envíamelos por email o formulario de contacto",
+      step2Note: "Asegúrate de descargar los archivos STL (no capturas de pantalla u otros formatos)",
+      step2Tip: "Hero Forge proporciona versiones STL con y sin soportes - recomiendo enviar ambas",
+      step3Title: "Yo la Imprimo y Envío",
+      step3Desc: "Imprimiré tu miniatura con resina de alta calidad, la limpiaré, aplicaré imprimación y te la enviaré lista para pintar",
+      heroForgeButton: "Diseñar en Hero Forge",
+      preMadeTitle: "Usar Miniatura Prediseñada",
+      preMadeDesc: "¿Prefieres una miniatura prediseñada? Elige entre miles de modelos listos para imprimir",
+      preMadeRecommendation: "Recomiendo estos creadores para archivos STL de alta calidad:",
+      preMadeLinks: {
+        fleshOfGods: "Flesh of Gods - Personajes de fantasía épica",
+        lootStudios: "Loot Studios - Packs mensuales de miniaturas",
+        bestiarumGames: "Bestiarum Games - Criaturas y monstruos"
+      },
+      pricingTitle: "Precios",
+      pricingSubtitle: "Precios transparentes basados en tamaño y complejidad",
+      miniaturesSizeTitle: "Miniaturas (por tamaño)",
+      price4_5cm: "4-5cm (Pequeña) - 5€",
+      price5_5_5cm: "5-5.5cm (Mediana) - 6€",
+      priceLarger: "Tamaños mayores - Solicita presupuesto",
+      basesTitle: "Bases",
+      priceSimpleBase: "Base simple (32mm) - Gratis",
+      priceDetailedBase: "Base detallada/personalizada - +2€",
+      includedTitle: "Qué incluye",
+      includedClean: "Impresión en resina limpia y curada",
+      includedPrimer: "Imprimada con imprimación gris (lista para pintar)",
+      noCommitment: "Los precios son estimados - sin compromiso hasta que discutamos tu miniatura específica",
+      specsTitle: "Especificaciones Técnicas",
+      maxSize: "Volumen máximo de impresión",
+      maxSizeValue: "16.5cm (H) x 8cm (W) x 8cm (D)",
+      readyToStart: "¿Listo para empezar?",
+      readyToStartDesc: "¡Envíame tus archivos STL y demos vida a tu miniatura!",
+      contactButton: "Formulario de Contacto"
     }
   }
 };
